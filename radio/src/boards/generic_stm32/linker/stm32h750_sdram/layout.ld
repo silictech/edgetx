@@ -2,6 +2,9 @@
 SDRAM_START = DEFINED(__sdram_start) ? __sdram_start : 0xC0000000;
 SDRAM_SIZE = DEFINED(__sdram_size) ? __sdram_size : 8192K;
 
+NORFLASH_START = 0x90000000;
+NORFLASH_SIZE = 32M;
+
 /* Highest heap address */
 HEAP_ADDRESS = SDRAM_START + SDRAM_SIZE;
 

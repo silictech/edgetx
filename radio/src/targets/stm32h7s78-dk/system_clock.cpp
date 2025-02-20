@@ -19,10 +19,10 @@
  * GNU General Public License for more details.
  */
 
-#include "stm32h7rsxx_ll_pwr.h"
-#include "stm32h7rsxx_ll_rcc.h"
-#include "stm32h7rsxx_ll_system.h"
-#include "stm32h7rsxx_ll_bus.h"
+#include "stm32h7xx_ll_pwr.h"
+#include "stm32h7xx_ll_rcc.h"
+#include "stm32h7xx_ll_system.h"
+#include "stm32h7xx_ll_bus.h"
 
 #define BOOTSTRAP __attribute__((section(".bootstrap")))
 
@@ -52,98 +52,151 @@ extern "C" BOOTSTRAP
 void SystemClock_Config()
 {
   /* Power Configuration */
-  LL_PWR_ConfigSupply(LL_PWR_DIRECT_SMPS_SUPPLY);
-  while (LL_PWR_IsActiveFlag_ACTVOSRDY() == 0) {
+//   LL_PWR_ConfigSupply(LL_PWR_DIRECT_SMPS_SUPPLY);
+//   while (LL_PWR_IsActiveFlag_ACTVOSRDY() == 0) {
+//   }
+//   LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE0);
+//   while (LL_PWR_IsActiveFlag_VOSRDY() == 0) {
+//   }
+
+//   /* Enable HSE oscillator */
+//   LL_RCC_HSE_Enable();
+//   while (LL_RCC_HSE_IsReady() != 1) {
+//   }
+
+//   /* Set FLASH latency */
+//   LL_FLASH_SetLatency(LL_FLASH_LATENCY_6);
+
+//   /* Main PLL configuration and activation */
+//   LL_RCC_PLL_SetSource(LL_RCC_PLLSOURCE_HSE);
+//   LL_RCC_PLL1P_Enable();
+//   // LL_RCC_PLL1Q_Enable();
+//   // LL_RCC_PLL1R_Enable();
+//   LL_RCC_PLL1FRACN_Disable();
+//   LL_RCC_PLL1_SetVCOInputRange(LL_RCC_PLLINPUTRANGE_2_4);
+//   LL_RCC_PLL1_SetVCOOutputRange(LL_RCC_PLLVCORANGE_WIDE);
+//   LL_RCC_PLL1_SetM(2);
+//   LL_RCC_PLL1_SetN(50);
+//   LL_RCC_PLL1_SetP(1);
+//   // LL_RCC_PLL1_SetQ(2);
+//   // LL_RCC_PLL1_SetR(2);
+//   // LL_RCC_PLL1_SetS(2);
+//   LL_RCC_PLL1_Enable();
+//   while (LL_RCC_PLL1_IsReady() != 1) {
+//   }
+
+//   /* Set Sys & AHB & APB1 & APB2 & APB4  prescaler */
+//   LL_RCC_SetSysPrescaler(LL_RCC_SYSCLK_DIV_1);
+//   LL_RCC_SetAHBPrescaler(LL_RCC_AHB_DIV_2);
+//   LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_2);
+//   LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_2);
+//   LL_RCC_SetAPB4Prescaler(LL_RCC_APB4_DIV_2);
+
+//   /* Set PLL1 as System Clock Source */
+//   LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL1);
+//   while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL1) {
+//   }
+
+//   /* PLL2 configuration and activation */
+//   LL_RCC_PLL2S_Enable();
+//   LL_RCC_PLL2Q_Enable();
+//   LL_RCC_PLL2FRACN_Disable();
+//   LL_RCC_PLL2_SetVCOInputRange(LL_RCC_PLLINPUTRANGE_2_4);
+//   LL_RCC_PLL2_SetVCOOutputRange(LL_RCC_PLLVCORANGE_WIDE);
+//   LL_RCC_PLL2_SetM(2);
+//   LL_RCC_PLL2_SetN(64);
+//   LL_RCC_PLL2_SetP(2);  // disabled
+//   LL_RCC_PLL2_SetQ(47); // 16.340 MHz
+//   LL_RCC_PLL2_SetR(2);  // disabled
+//   LL_RCC_PLL2_SetS(4);  // 192 MHz
+//   LL_RCC_PLL2_Enable();
+//   while (LL_RCC_PLL2_IsReady() != 1) {
+//   }
+
+//   /* PLL2 configuration and activation */
+//   LL_RCC_PLL3R_Enable();
+//   LL_RCC_PLL3FRACN_Disable();
+//   LL_RCC_PLL3_SetVCOInputRange(LL_RCC_PLLINPUTRANGE_4_8);
+//   LL_RCC_PLL3_SetVCOOutputRange(LL_RCC_PLLVCORANGE_WIDE);
+//   LL_RCC_PLL3_SetM(2);
+//   LL_RCC_PLL3_SetN(50);
+//   LL_RCC_PLL3_SetP(2);
+//   LL_RCC_PLL3_SetQ(2);
+//   LL_RCC_PLL3_SetR(24);
+//   LL_RCC_PLL3_Enable();
+//   while (LL_RCC_PLL3_IsReady() != 1) {
+//   }
+
+// #if defined(USE_USB_HS)
+//   LL_RCC_SetUSBPHYCClockSource(LL_RCC_USBPHYC_CLKSOURCE_HSE);
+//   LL_RCC_SetUSBREFClockSource(LL_RCC_USBREF_CLKSOURCE_24M);
+// #else
+//   LL_RCC_HSI48_Enable();
+//   while (LL_RCC_HSI48_IsReady() != 1) {
+//   }
+//   LL_RCC_SetOTGFSClockSource(LL_RCC_OTGFS_CLKSOURCE_HSI48);
+// #endif
+
+//   // 192 MHz
+//   LL_RCC_SetXSPIClockSource(LL_RCC_XSPI1_CLKSOURCE_PLL2S);
+//   LL_RCC_SetXSPIClockSource(LL_RCC_XSPI2_CLKSOURCE_PLL2S);
+
+//   // 16.340 MHz
+//   LL_RCC_SetSPIClockSource(LL_RCC_SPI6_CLKSOURCE_PLL2Q);
+
+//   // Only required if using Async ADC clock ???
+//   LL_RCC_SetADCClockSource(LL_RCC_ADC_CLKSOURCE_CLKP);
+
+  LL_FLASH_SetLatency(LL_FLASH_LATENCY_4);
+  while(LL_FLASH_GetLatency()!= LL_FLASH_LATENCY_4)
+  {
   }
+  LL_PWR_ConfigSupply(LL_PWR_LDO_SUPPLY);
   LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE0);
-  while (LL_PWR_IsActiveFlag_VOSRDY() == 0) {
+  while (LL_PWR_IsActiveFlag_VOS() == 0)
+  {
   }
+  LL_RCC_HSI_Enable();
 
-  /* Enable HSE oscillator */
-  LL_RCC_HSE_Enable();
-  while (LL_RCC_HSE_IsReady() != 1) {
+   /* Wait till HSI is ready */
+  while(LL_RCC_HSI_IsReady() != 1)
+  {
+
   }
-
-  /* Set FLASH latency */
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_6);
-
-  /* Main PLL configuration and activation */
-  LL_RCC_PLL_SetSource(LL_RCC_PLLSOURCE_HSE);
+  LL_RCC_HSI_SetCalibTrimming(64);
+  LL_RCC_HSI_SetDivider(LL_RCC_HSI_DIV1);
+  LL_RCC_PLL_SetSource(LL_RCC_PLLSOURCE_HSI);
   LL_RCC_PLL1P_Enable();
-  // LL_RCC_PLL1Q_Enable();
-  // LL_RCC_PLL1R_Enable();
-  LL_RCC_PLL1FRACN_Disable();
-  LL_RCC_PLL1_SetVCOInputRange(LL_RCC_PLLINPUTRANGE_2_4);
+  LL_RCC_PLL1_SetVCOInputRange(LL_RCC_PLLINPUTRANGE_8_16);
   LL_RCC_PLL1_SetVCOOutputRange(LL_RCC_PLLVCORANGE_WIDE);
-  LL_RCC_PLL1_SetM(2);
-  LL_RCC_PLL1_SetN(50);
-  LL_RCC_PLL1_SetP(1);
-  // LL_RCC_PLL1_SetQ(2);
-  // LL_RCC_PLL1_SetR(2);
-  // LL_RCC_PLL1_SetS(2);
+  LL_RCC_PLL1_SetM(4);
+  LL_RCC_PLL1_SetN(60);
+  LL_RCC_PLL1_SetP(2);
+  LL_RCC_PLL1_SetQ(2);
+  LL_RCC_PLL1_SetR(2);
   LL_RCC_PLL1_Enable();
-  while (LL_RCC_PLL1_IsReady() != 1) {
+
+   /* Wait till PLL is ready */
+  while(LL_RCC_PLL1_IsReady() != 1)
+  {
   }
 
-  /* Set Sys & AHB & APB1 & APB2 & APB4  prescaler */
+   /* Intermediate AHB prescaler 2 when target frequency clock is higher than 80 MHz */
+   LL_RCC_SetAHBPrescaler(LL_RCC_AHB_DIV_2);
+
+  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL1);
+
+   /* Wait till System clock is ready */
+  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL1)
+  {
+
+  }
   LL_RCC_SetSysPrescaler(LL_RCC_SYSCLK_DIV_1);
   LL_RCC_SetAHBPrescaler(LL_RCC_AHB_DIV_2);
   LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_2);
   LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_2);
+  LL_RCC_SetAPB3Prescaler(LL_RCC_APB3_DIV_2);
   LL_RCC_SetAPB4Prescaler(LL_RCC_APB4_DIV_2);
+  // LL_SetSystemCoreClock(480000000);
 
-  /* Set PLL1 as System Clock Source */
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL1);
-  while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL1) {
-  }
-
-  /* PLL2 configuration and activation */
-  LL_RCC_PLL2S_Enable();
-  LL_RCC_PLL2Q_Enable();
-  LL_RCC_PLL2FRACN_Disable();
-  LL_RCC_PLL2_SetVCOInputRange(LL_RCC_PLLINPUTRANGE_2_4);
-  LL_RCC_PLL2_SetVCOOutputRange(LL_RCC_PLLVCORANGE_WIDE);
-  LL_RCC_PLL2_SetM(2);
-  LL_RCC_PLL2_SetN(64);
-  LL_RCC_PLL2_SetP(2);  // disabled
-  LL_RCC_PLL2_SetQ(47); // 16.340 MHz
-  LL_RCC_PLL2_SetR(2);  // disabled
-  LL_RCC_PLL2_SetS(4);  // 192 MHz
-  LL_RCC_PLL2_Enable();
-  while (LL_RCC_PLL2_IsReady() != 1) {
-  }
-
-  /* PLL2 configuration and activation */
-  LL_RCC_PLL3R_Enable();
-  LL_RCC_PLL3FRACN_Disable();
-  LL_RCC_PLL3_SetVCOInputRange(LL_RCC_PLLINPUTRANGE_4_8);
-  LL_RCC_PLL3_SetVCOOutputRange(LL_RCC_PLLVCORANGE_WIDE);
-  LL_RCC_PLL3_SetM(2);
-  LL_RCC_PLL3_SetN(50);
-  LL_RCC_PLL3_SetP(2);
-  LL_RCC_PLL3_SetQ(2);
-  LL_RCC_PLL3_SetR(24);
-  LL_RCC_PLL3_Enable();
-  while (LL_RCC_PLL3_IsReady() != 1) {
-  }
-
-#if defined(USE_USB_HS)
-  LL_RCC_SetUSBPHYCClockSource(LL_RCC_USBPHYC_CLKSOURCE_HSE);
-  LL_RCC_SetUSBREFClockSource(LL_RCC_USBREF_CLKSOURCE_24M);
-#else
-  LL_RCC_HSI48_Enable();
-  while (LL_RCC_HSI48_IsReady() != 1) {
-  }
-  LL_RCC_SetOTGFSClockSource(LL_RCC_OTGFS_CLKSOURCE_HSI48);
-#endif
-
-  // 192 MHz
-  LL_RCC_SetXSPIClockSource(LL_RCC_XSPI1_CLKSOURCE_PLL2S);
-  LL_RCC_SetXSPIClockSource(LL_RCC_XSPI2_CLKSOURCE_PLL2S);
-
-  // 16.340 MHz
-  LL_RCC_SetSPIClockSource(LL_RCC_SPI6_CLKSOURCE_PLL2Q);
-
-  // Only required if using Async ADC clock ???
-  LL_RCC_SetADCClockSource(LL_RCC_ADC_CLKSOURCE_CLKP);
 }

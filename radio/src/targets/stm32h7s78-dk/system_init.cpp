@@ -10,7 +10,7 @@
 // Linker script symbols
 extern uint32_t _sisr_vector;
 extern uint32_t _dram_addr;
-extern uint32_t PSRAM_START;
+extern uint32_t SDRAM_START;
 extern uint32_t NORFLASH_START;
 
 extern "C" NAKED BOOTSTRAP
@@ -177,7 +177,7 @@ void MPU_Init()
   /* Region 3: SDRAM memory range */
   MPU_InitStruct.Enable = MPU_REGION_ENABLE;
   MPU_InitStruct.Number = MPU_REGION_NUMBER3;
-  MPU_InitStruct.BaseAddress = (uint32_t)&PSRAM_START;
+  MPU_InitStruct.BaseAddress = (uint32_t)&SDRAM_START;
   MPU_InitStruct.Size = MPU_REGION_SIZE_32MB;
   MPU_InitStruct.SubRegionDisable = 0x0;
   MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL1;

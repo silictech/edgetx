@@ -154,7 +154,7 @@ void SDRAM_InitSequence(void)
   FMC_SDRAMCommandStructure.AutoRefreshNumber = 1;
   FMC_SDRAMCommandStructure.ModeRegisterDefinition = 0;
   /* Wait until the SDRAM controller is ready */
-  while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
+  // while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
 
   /* Send the command */
   FMC_SDRAM_SendCommand(FMC_SDRAM_DEVICE, &FMC_SDRAMCommandStructure, 10);
@@ -170,7 +170,7 @@ void SDRAM_InitSequence(void)
   FMC_SDRAMCommandStructure.AutoRefreshNumber = 1;
   FMC_SDRAMCommandStructure.ModeRegisterDefinition = 0;
   /* Wait until the SDRAM controller is ready */
-  while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
+  // while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
 
   /* Send the command */
   FMC_SDRAM_SendCommand(FMC_SDRAM_DEVICE, &FMC_SDRAMCommandStructure, 10);
@@ -183,7 +183,7 @@ void SDRAM_InitSequence(void)
     FMC_SDRAMCommandStructure.ModeRegisterDefinition = 0;
 
     /* Wait until the SDRAM controller is ready */
-    while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
+    // while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
 
     /* Send the command */
     FMC_SDRAM_SendCommand(FMC_SDRAM_DEVICE, &FMC_SDRAMCommandStructure, 10);
@@ -203,7 +203,7 @@ void SDRAM_InitSequence(void)
   FMC_SDRAMCommandStructure.ModeRegisterDefinition = tmpr;
 
   /* Wait until the SDRAM controller is ready */
-  while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
+  // while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
 
   /* Send the command */
   FMC_SDRAM_SendCommand(FMC_SDRAM_DEVICE, &FMC_SDRAMCommandStructure, 10);
@@ -214,7 +214,7 @@ void SDRAM_InitSequence(void)
            = [(64ms/4096) * 84MHz] - 20 = 1312 - 20 ~ 1292 */
   FMC_SDRAM_ProgramRefreshRate(FMC_SDRAM_DEVICE, 1292);
   /* Wait until the SDRAM controller is ready */
-  while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
+  // while((__FMC_SDRAM_GET_FLAG(FMC_SDRAM_DEVICE, FMC_SDRAM_FLAG_BUSY) != 0));
 }
 
 extern "C" void SDRAM_Init(void)

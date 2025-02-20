@@ -8,7 +8,7 @@ option(MODULE_SIZE_STD "Standard size TX Module" ON)
 option(LUA_MIXER "Enable LUA mixer/model scripts support" ON)
 option(USB_HS "Enable USB HS" ON)
 
-set(CPU_TYPE STM32H7RS)
+set(CPU_TYPE STM32H7)
 set(HSE_VALUE 24000000)
 
 set(FLAVOUR h7rs)
@@ -26,8 +26,8 @@ set(PPM_LIMITS_SYMETRICAL YES)
 # set(HARDWARE_EXTERNAL_MODULE YES)
 
 # for size report script
-set(CPU_TYPE_FULL STM32H7S7xx)
-set(TARGET_LINKER_DIR stm32h7rs_sdram)
+set(CPU_TYPE_FULL STM32H750Ix)
+set(TARGET_LINKER_DIR stm32h750_sdram)
 set(TARGET_LINKER_PARAMS "-Wl,--defsym=__PSRAM_START__=0x90000000")
 set(SIZE_TARGET_MEM_DEFINE "MEM_SIZE_SDRAM1=32768")
 set(FIRMWARE_FORMAT_UF2 YES)
@@ -43,7 +43,7 @@ set(IMU ON)
 set(FIRMWARE_QSPI ON)
 
 add_definitions(
-  -DSTM32H7S7xx -DCORE_CM7 -DFIRMWARE_QSPI
+  -DSTM32H750xx -DCORE_CM7 -DFIRMWARE_QSPI
   -DSDRAM -DCOLORLCD -DLIBOPENUI -DPCBHORUS -DPCBX10 -DPCBFRSKY
   -DHARDWARE_TOUCH -DSOFTWARE_KEYBOARD
   -DAUDIO -DVOICE -DSOFTWARE_VOLUME
@@ -81,7 +81,9 @@ set(BOARD_COMMON_SRC
   targets/common/arm/stm32/delays_driver.cpp
   targets/common/arm/stm32/rtc_driver.cpp
   targets/common/arm/stm32/watchdog_driver.cpp
-  targets/common/arm/stm32/stm32_xspi_nor.cpp
+  # targets/common/arm/stm32/stm32_xspi_nor.cpp
+  targets/common/arm/stm32/stm32_qspi.cpp
+  targets/common/arm/stm32/sdram_driver.cpp
 )
 
 # Bootloader board library

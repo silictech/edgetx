@@ -107,7 +107,7 @@ if(NOT NATIVE_BUILD)
 
   # STM32 HAL/LL library
   include_directories(${STM32CUBE_DIR}/Inc)
-
+  message("hhhhhhhhhhhhhhhhhhhhhh")
   add_library(stm32cube_ll OBJECT EXCLUDE_FROM_ALL ${STM32CUBE_SRC})
   target_compile_definitions(stm32cube_ll PRIVATE USE_FULL_LL_DRIVER)
 

@@ -340,81 +340,81 @@ static int32_t LCD_InitEx(uint32_t Orientation, uint32_t PixelFormat,
 }
 
 /* LPTimer handler declaration */
-static LPTIM_HandleTypeDef hlcd_lptim;
-static LPTIM_OC_ConfigTypeDef  hlcd_lptim_config = {0};
+// static LPTIM_HandleTypeDef hlcd_lptim;
+// static LPTIM_OC_ConfigTypeDef  hlcd_lptim_config = {0};
 
 /**
   * @brief  Initializes TIM MSP.
   * @param  hlptim LPTIM handle
   * @retval None
   */
-static void LPTIMx_PWM_MspInit(LPTIM_HandleTypeDef *hlptim)
-{
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(hlptim);
+// static void LPTIMx_PWM_MspInit(LPTIM_HandleTypeDef *hlptim)
+// {
+//   /* Prevent unused argument(s) compilation warning */
+//   UNUSED(hlptim);
 
-  GPIO_InitTypeDef gpio_init_structure;
+//   GPIO_InitTypeDef gpio_init_structure;
 
-  LCD_BL_CTRL_GPIO_CLK_ENABLE();
+//   LCD_BL_CTRL_GPIO_CLK_ENABLE();
 
-  /* LPTIMx Peripheral clock enable */
-  LCD_LPTIMx_CLK_ENABLE();
+//   /* LPTIMx Peripheral clock enable */
+//   LCD_LPTIMx_CLK_ENABLE();
 
-  /* Timer channel configuration */
-  gpio_init_structure.Mode      = GPIO_MODE_AF_PP;
-  gpio_init_structure.Pull      = GPIO_NOPULL;
-  gpio_init_structure.Speed     = GPIO_SPEED_FREQ_MEDIUM;
-  gpio_init_structure.Alternate = LCD_LPTIMx_CHANNEL_AF;
-  gpio_init_structure.Pin       = LCD_BL_CTRL_PIN; /* BL_CTRL */
+//   /* Timer channel configuration */
+//   gpio_init_structure.Mode      = GPIO_MODE_AF_PP;
+//   gpio_init_structure.Pull      = GPIO_NOPULL;
+//   gpio_init_structure.Speed     = GPIO_SPEED_FREQ_MEDIUM;
+//   gpio_init_structure.Alternate = LCD_LPTIMx_CHANNEL_AF;
+//   gpio_init_structure.Pin       = LCD_BL_CTRL_PIN; /* BL_CTRL */
 
-  HAL_GPIO_Init(LCD_BL_CTRL_GPIO_PORT, &gpio_init_structure);
-}
+//   HAL_GPIO_Init(LCD_BL_CTRL_GPIO_PORT, &gpio_init_structure);
+// }
 
 /**
   * @brief  Initializes LPTIM in PWM mode
   * @param  hlptim LPTIM handle
   * @retval None
   */
-static void LPTIMx_PWM_Init(LPTIM_HandleTypeDef *hlptim)
-{
-  LPTIMx_PWM_MspInit(hlptim);
+// static void LPTIMx_PWM_Init(LPTIM_HandleTypeDef *hlptim)
+// {
+//   LPTIMx_PWM_MspInit(hlptim);
 
-  hlptim->Instance = LCD_LPTIMx;
-  (void)HAL_LPTIM_DeInit(hlptim);
+//   hlptim->Instance = LCD_LPTIMx;
+//   (void)HAL_LPTIM_DeInit(hlptim);
 
-  hlptim->Init.CounterSource = LPTIM_COUNTERSOURCE_INTERNAL;
-  hlptim->Init.UpdateMode = LPTIM_UPDATE_IMMEDIATE;
-  hlptim->Init.Clock.Source = LCD_LPTIMX_CLOCK_SOURCE;
-  hlptim->Init.Clock.Prescaler = LCD_LPTIMX_PRESCALER_VALUE;
-  hlptim->Init.UltraLowPowerClock.SampleTime = LPTIM_TRIGSAMPLETIME_DIRECTTRANSITION;
-  hlptim->Init.Trigger.Source = LPTIM_TRIGSOURCE_SOFTWARE;
-  hlptim->Init.Trigger.ActiveEdge = LPTIM_ACTIVEEDGE_RISING;
-  hlptim->Init.Trigger.SampleTime = LPTIM_TRIGSAMPLETIME_DIRECTTRANSITION;
-  hlptim->Init.Input1Source = LPTIM_INPUT1SOURCE_GPIO;
-  hlptim->Init.Input2Source = LPTIM_INPUT2SOURCE_GPIO;
-  hlptim->Init.Period = LCD_LPTIMX_PERIOD_VALUE;
-  hlptim->Init.RepetitionCounter = 0;
-  hlptim->Init.UltraLowPowerClock.Polarity = LPTIM_CLOCKPOLARITY_RISING;
+//   hlptim->Init.CounterSource = LPTIM_COUNTERSOURCE_INTERNAL;
+//   hlptim->Init.UpdateMode = LPTIM_UPDATE_IMMEDIATE;
+//   hlptim->Init.Clock.Source = LCD_LPTIMX_CLOCK_SOURCE;
+//   hlptim->Init.Clock.Prescaler = LCD_LPTIMX_PRESCALER_VALUE;
+//   hlptim->Init.UltraLowPowerClock.SampleTime = LPTIM_TRIGSAMPLETIME_DIRECTTRANSITION;
+//   hlptim->Init.Trigger.Source = LPTIM_TRIGSOURCE_SOFTWARE;
+//   hlptim->Init.Trigger.ActiveEdge = LPTIM_ACTIVEEDGE_RISING;
+//   hlptim->Init.Trigger.SampleTime = LPTIM_TRIGSAMPLETIME_DIRECTTRANSITION;
+//   hlptim->Init.Input1Source = LPTIM_INPUT1SOURCE_GPIO;
+//   hlptim->Init.Input2Source = LPTIM_INPUT2SOURCE_GPIO;
+//   hlptim->Init.Period = LCD_LPTIMX_PERIOD_VALUE;
+//   hlptim->Init.RepetitionCounter = 0;
+//   hlptim->Init.UltraLowPowerClock.Polarity = LPTIM_CLOCKPOLARITY_RISING;
 
-  (void)HAL_LPTIM_Init(hlptim);
+//   (void)HAL_LPTIM_Init(hlptim);
 
-  hlcd_lptim_config.Pulse      = LCD_LPTIMX_PULSE_VALUE;
-  hlcd_lptim_config.OCPolarity = LPTIM_OCPOLARITY_LOW;
-  (void)HAL_LPTIM_OC_ConfigChannel(hlptim, &hlcd_lptim_config, LPTIM_CHANNEL_2);
-  (void)HAL_LPTIM_PWM_Start(hlptim, LPTIM_CHANNEL_2);
-}
+//   hlcd_lptim_config.Pulse      = LCD_LPTIMX_PULSE_VALUE;
+//   hlcd_lptim_config.OCPolarity = LPTIM_OCPOLARITY_LOW;
+//   (void)HAL_LPTIM_OC_ConfigChannel(hlptim, &hlcd_lptim_config, LPTIM_CHANNEL_2);
+//   (void)HAL_LPTIM_PWM_Start(hlptim, LPTIM_CHANNEL_2);
+// }
 
 void LCD_SetBrightness(uint32_t Brightness)
 {
-  hlcd_lptim_config.Pulse =
-      ((uint32_t)(LCD_LPTIMX_PERIOD_VALUE + 1U) * Brightness / 100U) - 1U;
-  (void)HAL_LPTIM_OC_ConfigChannel(&hlcd_lptim, &hlcd_lptim_config,
-                                   LPTIM_CHANNEL_2);
+//   hlcd_lptim_config.Pulse =
+//       ((uint32_t)(LCD_LPTIMX_PERIOD_VALUE + 1U) * Brightness / 100U) - 1U;
+//   (void)HAL_LPTIM_OC_ConfigChannel(&hlcd_lptim, &hlcd_lptim_config,
+//                                    LPTIM_CHANNEL_2);
 }
 
 extern "C" void backlightInit()
 {
-  LPTIMx_PWM_Init(&hlcd_lptim);
+//   LPTIMx_PWM_Init(&hlcd_lptim);
 }
 
 static volatile uint8_t _frame_addr_reloaded = 0;

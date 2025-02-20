@@ -20,6 +20,7 @@
 * @retval None
 */
 
+
 #include "stm32_hal.h"
 #include "stm32_hal_ll.h"
 
