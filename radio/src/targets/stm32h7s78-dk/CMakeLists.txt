@@ -9,7 +9,7 @@ option(LUA_MIXER "Enable LUA mixer/model scripts support" ON)
 option(USB_HS "Enable USB HS" ON)
 
 set(CPU_TYPE STM32H7)
-set(HSE_VALUE 24000000)
+set(HSE_VALUE 25000000)
 
 set(FLAVOUR h7rs)
 set(TARGET_DIR stm32h7s78-dk)
